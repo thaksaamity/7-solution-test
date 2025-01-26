@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 	"time"
-	"https://github.com/thaksananan-01/7-solution-test/beefpb"
+	"github.com/thaksananan-01/7-solution-test/beefpb"
 	"google.golang.org/grpc"
 )
 

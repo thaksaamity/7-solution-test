@@ -1,12 +1,12 @@
 package main
 
 import (
-	"https://github.com/thaksananan-01/7-solution-test/question3"
+	"github.com/thaksananan-01/7-solution-test/question3"
 	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"https://github.com/thaksananan-01/7-solution-test/beefpb" // Import the generated protobuf package
+	"github.com/thaksananan-01/7-solution-test/beefpb" // Import the generated protobuf package
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
