@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 	"time"
-	"github.com/thaksananan-01/7-solution-test/beefpb"
+	pb "github.com/thaksananan-01/7-solution-test/beefpb"
 	"google.golang.org/grpc"
 )
 
@@ -17,7 +17,7 @@ func main() {
 
 	client := pb.NewBeefServiceClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	response, err := client.GetSummary(ctx, &pb.SummaryRequest{})

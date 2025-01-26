@@ -1,23 +1,20 @@
 package main
 
 import (
-	"github.com/thaksananan-01/7-solution-test/question3"
-	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"github.com/thaksananan-01/7-solution-test/beefpb" // Import the generated protobuf package
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
+	"github.com/thaksananan-01/7-solution-test/question3"
+	"context"
 	"log"
 	"net"
+	"google.golang.org/grpc"
+    pb "github.com/thaksananan-01/7-solution-test/beefpb"
 )
 
-type server struct {
-	pb.UnimplementedBeefServiceServer
-}
+type BeefServer struct{}
 
-func (s *server) GetSummary(ctx context.Context, req *pb.SummaryRequest) (*pb.SummaryResponse, error) {
+func (s *BeefServer) GetSummary(ctx context.Context, req *pb.SummaryRequest) (*pb.SummaryResponse, error) {
 	response, err := http.Get("https://baconipsum.com/api/?type=meat-and-filler&paras=99&format=text")
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch data: %v", err)
@@ -44,20 +41,17 @@ func (s *server) GetSummary(ctx context.Context, req *pb.SummaryRequest) (*pb.Su
 	return result, nil
 }
 
+
 func main() {
-	listener, err := net.Listen("tcp", ":50051")
+	// Start gRPC server
+	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+			log.Fatalf("failed to listen: %v", err)
 	}
-
 	grpcServer := grpc.NewServer()
-	pb.RegisterBeefServiceServer(grpcServer, &server{})
-
-	// Enable reflection for debugging with gRPC tools
-	reflection.Register(grpcServer)
-
-	log.Println("gRPC server is running on port 50051")
-	if err := grpcServer.Serve(listener); err != nil {
-		log.Fatalf("failed to serve: %v", err)
+	pb.RegisterBeefServiceServer(grpcServer, &BeefServer{})
+	log.Println("gRPC server running on port 50051...")
+	if err := grpcServer.Serve(lis); err != nil {
+			log.Fatalf("failed to serve: %v", err)
 	}
 }

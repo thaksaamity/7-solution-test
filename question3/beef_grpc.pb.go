@@ -4,7 +4,7 @@
 // - protoc             v5.29.0--rc3
 // source: beef.proto
 
-package beefpb
+package question3
 
 import (
 	context "context"
@@ -19,18 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	BeefService_GetSummary_FullMethodName     = "/question3.BeefService/GetSummary"
-	BeefService_GetSummaryHttp_FullMethodName = "/question3.BeefService/GetSummaryHttp"
+	BeefService_GetSummary_FullMethodName = "/question3.BeefService/GetSummary"
 )
 
 // BeefServiceClient is the client API for BeefService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BeefServiceClient interface {
-	// gRPC method (already exists)
 	GetSummary(ctx context.Context, in *SummaryRequest, opts ...grpc.CallOption) (*SummaryResponse, error)
-	// HTTP/REST API method (mapped to GetSummary)
-	GetSummaryHttp(ctx context.Context, in *SummaryRequest, opts ...grpc.CallOption) (*SummaryResponse, error)
 }
 
 type beefServiceClient struct {
@@ -51,24 +47,11 @@ func (c *beefServiceClient) GetSummary(ctx context.Context, in *SummaryRequest, 
 	return out, nil
 }
 
-func (c *beefServiceClient) GetSummaryHttp(ctx context.Context, in *SummaryRequest, opts ...grpc.CallOption) (*SummaryResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SummaryResponse)
-	err := c.cc.Invoke(ctx, BeefService_GetSummaryHttp_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // BeefServiceServer is the server API for BeefService service.
 // All implementations must embed UnimplementedBeefServiceServer
 // for forward compatibility.
 type BeefServiceServer interface {
-	// gRPC method (already exists)
 	GetSummary(context.Context, *SummaryRequest) (*SummaryResponse, error)
-	// HTTP/REST API method (mapped to GetSummary)
-	GetSummaryHttp(context.Context, *SummaryRequest) (*SummaryResponse, error)
 	mustEmbedUnimplementedBeefServiceServer()
 }
 
@@ -81,9 +64,6 @@ type UnimplementedBeefServiceServer struct{}
 
 func (UnimplementedBeefServiceServer) GetSummary(context.Context, *SummaryRequest) (*SummaryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSummary not implemented")
-}
-func (UnimplementedBeefServiceServer) GetSummaryHttp(context.Context, *SummaryRequest) (*SummaryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSummaryHttp not implemented")
 }
 func (UnimplementedBeefServiceServer) mustEmbedUnimplementedBeefServiceServer() {}
 func (UnimplementedBeefServiceServer) testEmbeddedByValue()                     {}
@@ -124,24 +104,6 @@ func _BeefService_GetSummary_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BeefService_GetSummaryHttp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SummaryRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(BeefServiceServer).GetSummaryHttp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: BeefService_GetSummaryHttp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BeefServiceServer).GetSummaryHttp(ctx, req.(*SummaryRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // BeefService_ServiceDesc is the grpc.ServiceDesc for BeefService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,10 +114,6 @@ var BeefService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSummary",
 			Handler:    _BeefService_GetSummary_Handler,
-		},
-		{
-			MethodName: "GetSummaryHttp",
-			Handler:    _BeefService_GetSummaryHttp_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

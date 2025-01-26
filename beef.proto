@@ -2,16 +2,27 @@ syntax = "proto3";
 
 package question3;
 
+import "google/api/annotations.proto"; // Correct the path if necessary
+
 option go_package = "./beefpb";
 
+
 service BeefService {
+  // gRPC method (already exists)
   rpc GetSummary(SummaryRequest) returns (SummaryResponse);
+
+  // HTTP/REST API method (mapped to GetSummary)
+  rpc GetSummaryHttp(SummaryRequest) returns (SummaryResponse) {
+    option (google.api.http) = {
+      get: "/api/summary"
+    };
+  }
 }
 
 message SummaryRequest {
-  // Add fields if needed, but in this case, it's empty since no input is needed.
+  // Define fields here, if necessary
 }
 
 message SummaryResponse {
-  map<string, int32> beef = 1; // Map of words and their counts
+  map<string, int32> beef = 1;
 }
