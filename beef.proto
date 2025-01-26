@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package question3;
+
+option go_package = "./beefpb";
+
+service BeefService {
+  rpc GetSummary(SummaryRequest) returns (SummaryResponse);
+}
+
+message SummaryRequest {
+  // Add fields if needed, but in this case, it's empty since no input is needed.
+}
+
+message SummaryResponse {
+  map<string, int32> beef = 1; // Map of words and their counts
+}
