@@ -2,26 +2,19 @@ syntax = "proto3";
 
 package question3;
 
-import "google/api/annotations.proto"; // Correct the path if necessary
+import "google/api/annotations.proto"; // This is required for HTTP annotations
 
-option go_package = "./beefpb";
-
+option go_package = "./question3";
 
 service BeefService {
-  // gRPC method (already exists)
-  rpc GetSummary(SummaryRequest) returns (SummaryResponse);
-
-  // HTTP/REST API method (mapped to GetSummary)
-  rpc GetSummaryHttp(SummaryRequest) returns (SummaryResponse) {
+  rpc GetSummary(SummaryRequest) returns (SummaryResponse) {
     option (google.api.http) = {
-      get: "/api/summary"
+      get: "/v1/summary"
     };
   }
 }
 
-message SummaryRequest {
-  // Define fields here, if necessary
-}
+message SummaryRequest {}
 
 message SummaryResponse {
   map<string, int32> beef = 1;

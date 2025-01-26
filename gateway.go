@@ -5,8 +5,8 @@ import (
     "log"
     "net/http"
     "google.golang.org/grpc"
-    pb "github.com/thaksananan-01/7-solution-test/beefpb"
-    gw "github.com/thaksananan-01/7-solution-test/beefpb" // Import the generated Gateway code
+    pb "github.com/thaksananan-01/7-solution-test/question3"
+    gw "github.com/thaksananan-01/7-solution-test/question3" // Import the generated Gateway code
     "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
     "google.golang.org/grpc/status"
     "google.golang.org/grpc/codes"

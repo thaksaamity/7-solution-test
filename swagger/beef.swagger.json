@@ -16,10 +16,9 @@
     "application/json"
   ],
   "paths": {
-    "/api/summary": {
+    "/v1/summary": {
       "get": {
-        "summary": "HTTP/REST API method (mapped to GetSummary)",
-        "operationId": "BeefService_GetSummaryHttp",
+        "operationId": "BeefService_GetSummary",
         "responses": {
           "200": {
             "description": "A successful response.",
