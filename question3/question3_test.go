@@ -1,11 +1,11 @@
 package question3_test
 
 import (
+	"github.com/thaksananan-01/7-solution-test/question3"
 	"testing"
 )
 
 func TestQuestion3(t *testing.T) {
-	// Test case 1: Regular input with multiple words
 	text1 := "Fatback t-bone t-bone, pastrami  ..   t-bone.  pork, meatloaf jowl enim.  Bresaola t-bone."
 	expected1 := map[string]interface{}{
 		"t-bone":   4,

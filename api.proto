@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package api;
+
+import "google/api/annotations.proto"; // This is required for HTTP annotations
+
+option go_package = "./api";
+
+message SummaryRequest {}
+
+message SummaryResponse {
+  map<string, int32> beef = 1;
+}
+
+message TriangleRequest {}
+
+message TriangleResponse {
+  int32 sum = 1;
+}
+
+message CatchMeRequest {
+  string input = 1; // Single string input
+}
+
+message CatchMeResponse {
+  string output = 1;
+}
+service APIService {
+  rpc GetTriangleWithLoop(TriangleRequest) returns (TriangleResponse) {
+    option (google.api.http) = {
+      get: "/api/binary-tree/loop"
+  };
+  }
+
+  rpc GetTriangleWithNonLoop(TriangleRequest) returns (TriangleResponse) {
+    option (google.api.http) = {
+      get: "/api/binary-tree/without-loop"
+  };
+  }
+
+  rpc CatchMeIfYouCan(CatchMeRequest) returns (CatchMeResponse) {
+    option (google.api.http) = {
+      post: "/api/catch-me"
+      body: "*"
+  };
+  }
+
+  rpc GetSummary(SummaryRequest) returns (SummaryResponse) {
+    option (google.api.http) = {
+      get: "/api/summary"
+    };
+  }
+}
